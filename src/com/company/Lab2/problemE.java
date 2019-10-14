@@ -38,6 +38,7 @@ public class problemE {
         System.arraycopy(nums2, 0, HP, low, high - low + 1);
         System.arraycopy(nums3, 0, gongji, low, high - low + 1);
     }
+
     private static void MergeSort(long[] arr, int low, int high, long[] HP, int[] gongji) {
         if (low < high) {
             int mid = low + (high - low) / 2;
