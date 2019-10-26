@@ -54,7 +54,6 @@ public class problemE {
         return -1;
     }
 
-
     public static void main(String[] args) {
         InputStream inputStream = System.in;
         InputReader in = new InputReader(inputStream);
@@ -67,7 +66,6 @@ public class problemE {
         }
         int min = 0;
         int max = s2.length();
-
         while (min < max) {
             int mid = (min + max + 1) >> 1;
             long[] s2hash = new long[s2.length() - mid + 1];
@@ -79,8 +77,6 @@ public class problemE {
             for (int i = 1; i < s2.length() - mid + 1; i++) {
                 s2hash[i] = (s2hash[i - 1] - s2.charAt(i - 1) * pow[mid - 1]) * 139 + s2.charAt(i + mid - 1);
             }
-
-
             int a = -1;
             long[] s1hash = new long[s1.length() - mid + 1];
 
