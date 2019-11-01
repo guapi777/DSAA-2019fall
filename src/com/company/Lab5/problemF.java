@@ -12,7 +12,6 @@ public class problemF {
             reader = new BufferedReader(new InputStreamReader(stream), 32768);
             tokenizer = null;
         }
-
         public String next() {
             while (tokenizer == null || !tokenizer.hasMoreTokens()) {
                 try {
