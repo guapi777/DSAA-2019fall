@@ -1,5 +1,6 @@
 package com.company.lab7;
 
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-public class problemA {
+public class problemB {
     static class InputReader {
         public BufferedReader reader;
         public StringTokenizer tokenizer;
@@ -57,7 +58,7 @@ public class problemA {
 
     }
 
-    private static boolean isCompleteBTree(Node root) {
+    private static boolean isMinHeap(Node root) {
 
         if (root == null) {
             return true;
@@ -77,12 +78,51 @@ public class problemA {
                 return false;
             }
 
-            if (node.leftNode != null) {
+            if (node.leftNode != null && node.leftNode.value > node.value) {
                 queue.offer(node.leftNode);
+            } else if (node.rightNode != null && node.rightNode.value < node.value) {
+                return false;
             }
 
-            if (node.rightNode != null) {
+            if (node.rightNode != null && node.rightNode.value > node.value) {
                 queue.offer(node.rightNode);
+            } else if (node.rightNode != null && node.rightNode.value < node.value) {
+                return false;
+            } else {
+                leaf = true;
+            }
+        }
+        return true;
+    }
+
+    private static boolean isMaxHeap(Node root) {
+
+        if (root == null) {
+            return true;
+        }
+
+        Queue<Node> queue = new LinkedList<>();
+        queue.offer(root);
+        boolean leaf = false;
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
+
+            if (node.leftNode == null && node.rightNode != null) {
+                return false;
+            }
+
+            if (leaf && node.leftNode != null) {
+                return false;
+            }
+            if (node.leftNode != null && node.leftNode.value < node.value) {
+                queue.offer(node.leftNode);
+            } else if (node.rightNode != null && node.rightNode.value > node.value) {
+                return false;
+            }
+            if (node.rightNode != null && node.rightNode.value < node.value) {
+                queue.offer(node.rightNode);
+            } else if (node.rightNode != null && node.rightNode.value > node.value) {
+                return false;
             } else {
                 leaf = true;
             }
@@ -100,18 +140,26 @@ public class problemA {
             int size = in.nextInt();
             Node[] nodes = new Node[size];
             for (int j = 0; j < size; j++) {
-                nodes[j] = new Node(j + 1);
+                nodes[j] = new Node(in.nextInt());
             }
-            for (int j = 0; j < size; j++) {
+            boolean flag = false;
+            for (int j = 0; j < size - 1; j++) {
                 int a = in.nextInt();
                 int b = in.nextInt();
-                if (a != 0) {
-                    nodes[j].addLeftNode(nodes[a - 1]);
+                if (nodes[a - 1].leftNode == null) {
+                    nodes[a - 1].addLeftNode(nodes[b - 1]);
+                    continue;
                 }
-                if (b != 0) {
-                    nodes[j].addRightNode(nodes[b - 1]);
+                if (nodes[a - 1].rightNode == null) {
+                    nodes[a - 1].addRightNode(nodes[b - 1]);
+                    continue;
                 }
 
+                flag = true;
+            }
+            if (flag) {
+                System.out.println("Case #" + (i + 1) + ": NO");
+                continue;
             }
             Node root = null;
             for (int j = 0; j < size; j++) {
@@ -120,12 +168,9 @@ public class problemA {
                     break;
                 }
             }
-
-            if (isCompleteBTree(root)) {
-                System.out.println("Yes");
-            } else System.out.println("No");
+            if (isMinHeap(root) || isMaxHeap(root)) {
+                System.out.println("Case #" + (i + 1) + ": YES");
+            } else System.out.println("Case #" + (i + 1) + ": NO");
         }
-
-
     }
 }
