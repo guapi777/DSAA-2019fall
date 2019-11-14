@@ -59,6 +59,7 @@ public class problemC {
         for (int i = y1; i <= y2; i++) {
             if (In[i] == pre[x1]) {
                 index = i;
+                break;
             }
         }
         int offSet = index - y1 - 1;

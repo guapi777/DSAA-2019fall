@@ -92,6 +92,7 @@ public class problemB {
             for (int j = 0; j < nodes.length; j++) {
                 out.print(depth.get(j) + " ");
             }
+
             depth = new ArrayList<>();
             out.println();
         }
