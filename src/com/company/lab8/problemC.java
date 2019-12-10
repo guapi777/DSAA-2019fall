@@ -28,6 +28,10 @@ public class problemC {
             return tokenizer.nextToken();
         }
 
+        public long nextLong() {
+            return Long.parseLong(next());
+        }
+
         public int nextInt() {
             return Integer.parseInt(next());
         }
@@ -67,11 +71,12 @@ public class problemC {
 
 
     public static void main(String[] args) {
+
         InputStream inputStream = System.in;
         InputReader in = new InputReader(inputStream);
         int n = in.nextInt();
-        int m = in.nextInt();
-        Node[] nodes = new Node[400004];
+        long m = in.nextLong();
+        Node[] nodes = new Node[8000004];
         int count = n;
         for (int i = 0; i < nodes.length; i++) {
             nodes[i] = new Node(null, i);
@@ -79,15 +84,13 @@ public class problemC {
         for (int i = 0; i < m; i++) {
             int x = in.nextInt();
             int y = in.nextInt();
-            int weight = in.nextInt();
-
+            long weight = in.nextLong();
             Node tmp;
             if (nodes[x - 1].next != null) {
                 tmp = nodes[x - 1].next;
 
                 while (tmp.next != null) {
                     tmp = tmp.next;
-                    System.out.println(i);
                 }
             } else tmp = nodes[x - 1];
 
@@ -100,9 +103,37 @@ public class problemC {
             }
 
         }
+
+
+        int[] ints = new int[8000004];
+        int[] depth = new int[8000004];
+
         queue queue = new queue();
+        queue.enQueue(nodes[0]);
+        boolean flag = false;
 
+        ints[nodes[0].value] = 1;
+        while (queue.arrayList.size() != 0) {
+            Node tmp = queue.deQueue();
+            ints[tmp.value] = 1;
 
+            Node tmp2 = new Node(tmp.next, tmp.value);
 
+            while (tmp.next != null && ints[tmp.next.value] == 0) {
+                queue.enQueue(nodes[tmp.next.value]);
+                depth[tmp.next.value] = depth[tmp2.value] + 1;
+                ints[tmp.next.value] = 1;
+                if (tmp.next.value == n - 1) {
+                    System.out.print(depth[n - 1]);
+                    flag = true;
+                    break;
+                }
+                tmp = tmp.next;
+            }
+            if (flag)
+                break;
+        }
+        if (depth[n - 1] == 0)
+            System.out.print(-1);
     }
 }

@@ -73,6 +73,7 @@ public class problemB {
 
     public static void main(String[] args) {
 
+
         InputStream inputStream = System.in;
         InputReader in = new InputReader(inputStream);
         int times = in.nextInt();
