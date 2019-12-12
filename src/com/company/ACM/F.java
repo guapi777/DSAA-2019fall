@@ -1,16 +1,10 @@
 package com.company.ACM;
-
 import java.util.Scanner;
-
 public class F {
-
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int times = scanner.nextInt();
         for (int i = 0; i < times; i++) {
-
-
             long a = scanner.nextLong();
             long b = scanner.nextLong();
             long c = scanner.nextLong();
