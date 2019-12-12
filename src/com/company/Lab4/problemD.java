@@ -28,6 +28,7 @@ public class problemD {
             return arrayList.size() == 0;
         }
 
+
         int getPeek() {
             return arrayList.get(arrayList.size() - 1);
         }

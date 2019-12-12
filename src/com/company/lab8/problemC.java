@@ -42,6 +42,7 @@ public class problemC {
         Node next;
         int value;
 
+
         Node(Node next, int value) {
             this.next = next;
             this.value = value;
@@ -76,7 +77,7 @@ public class problemC {
         InputReader in = new InputReader(inputStream);
         int n = in.nextInt();
         long m = in.nextLong();
-        Node[] nodes = new Node[8000004];
+        Node[] nodes = new Node[800004];
         int count = n;
         for (int i = 0; i < nodes.length; i++) {
             nodes[i] = new Node(null, i);
@@ -88,9 +89,19 @@ public class problemC {
             Node tmp;
             if (nodes[x - 1].next != null) {
                 tmp = nodes[x - 1].next;
-
+                if (tmp.value == y - 1) {
+                    continue;
+                }
+                boolean fla = false;
                 while (tmp.next != null) {
                     tmp = tmp.next;
+                    if (tmp.value == y - 1) {
+                        fla = true;
+                        break;
+                    }
+                }
+                if (fla) {
+                    continue;
                 }
             } else tmp = nodes[x - 1];
 
@@ -105,8 +116,8 @@ public class problemC {
         }
 
 
-        int[] ints = new int[8000004];
-        int[] depth = new int[8000004];
+        int[] ints = new int[800004];
+        int[] depth = new int[800004];
 
         queue queue = new queue();
         queue.enQueue(nodes[0]);

@@ -1,9 +1,6 @@
 package com.company.lab8;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -72,6 +69,7 @@ public class problemD {
     public static void main(String[] args) {
         InputStream inputStream = System.in;
         InputReader in = new InputReader(inputStream);
+
         int times = in.nextInt();
         for (int i = 0; i < times; i++) {
             Node[] nodes = new Node[in.nextInt()];
@@ -100,8 +98,6 @@ public class problemD {
                         tmp2 = tmp2.next;
                     }
                 } else tmp2 = nodes[b - 1];
-
-
                 tmp1.next = new Node(b - 1, null);
                 tmp2.next = new Node(a - 1, null);
             }
@@ -110,26 +106,39 @@ public class problemD {
             types[nodes[0].value] = 1;
             while (queue.arrayList.size() != 0) {
                 Node tmp = queue.deQueue();
-                Node tmp2 = new Node(tmp.value, tmp.next);
+                int curType = types[tmp.value];
                 tag[tmp.value] = 2;
                 while (tmp.next != null) {
                     if (tag[tmp.next.value] == 0) {
-                        queue.enQueue(tmp.next);
+                        queue.enQueue(nodes[tmp.next.value]);
                         tag[tmp.next.value] = 1;
-                        if (types[tmp2.value] == 1)
-                         if (types[tmp2.value] == 2)
-                            types[tmp2.value] = 1;
-
+                        if (curType == 1)
+                            types[tmp.next.value] = 2;
+                        else if (curType == 2)
+                            types[tmp.next.value] = 1;
                     }
                     tmp = tmp.next;
                 }
-
             }
-            System.out.println(nodes);
-            System.out.println(types);
-            System.out.println(tag);
-
-
+            int count = 0;
+            for (int type : types) {
+                if (type == 1)
+                    count++;
+            }
+            if (count < types.length - count) {
+                System.out.println(count);
+                for (int j = 0; j < types.length; j++) {
+                    if (types[j] == 1)
+                        System.out.print(j + 1 + " ");
+                }
+            } else {
+                System.out.println(types.length - count);
+                for (int j = 0; j < types.length; j++) {
+                    if (types[j] == 2 || types[j] == 0)
+                        System.out.print(j + 1 + " ");
+                }
+            }
+            System.out.println();
         }
     }
 }
